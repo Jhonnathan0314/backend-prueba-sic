@@ -2,11 +2,10 @@ package com.prueba.sic.pruebasic.context.employee.application.usecase;
 
 import com.prueba.sic.pruebasic.context.employee.domain.model.Employee;
 import com.prueba.sic.pruebasic.context.employee.domain.port.EmployeeRepository;
+import com.prueba.sic.pruebasic.context.person.domain.model.Person;
+import com.prueba.sic.pruebasic.context.person.domain.port.PersonRepository;
 import com.prueba.sic.pruebasic.utils.constants.ErrorMessages;
-import com.prueba.sic.pruebasic.utils.exceptions.InvalidBodyException;
-import com.prueba.sic.pruebasic.utils.exceptions.NoChangesException;
-import com.prueba.sic.pruebasic.utils.exceptions.NoIdReceivedException;
-import com.prueba.sic.pruebasic.utils.exceptions.NoResultsException;
+import com.prueba.sic.pruebasic.utils.exceptions.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +17,18 @@ import java.util.Optional;
 public class EmployeeUpdateUseCase {
 
     private final ErrorMessages errorMessages = new ErrorMessages();
-
     private final EmployeeRepository employeeRepository;
+    private final PersonRepository personRepository;
 
-    public Employee update(Employee employee) throws NoIdReceivedException, NoResultsException, NoChangesException, InvalidBodyException {
+    public Employee update(Long id, Employee employee) throws NoIdReceivedException, NoResultsException, NoChangesException, InvalidBodyException, NonExistenceException {
+
+        employee.setIdentificationNumber(id);
+
+        Optional<Person> optionalPerson = personRepository.findById(employee.getIdentificationNumber());
+        if(optionalPerson.isEmpty()) throw new NonExistenceException(errorMessages.PERSON_EMPLOYEE_ID_ERROR);
+
+        employee.setPerson(optionalPerson.get());
+
         if(employee.getIdentificationNumber() == null) throw new NoIdReceivedException(errorMessages.NO_ID_RECEIVED);
 
         if(!employee.isValid(employee)) throw new InvalidBodyException(errorMessages.INVALID_BODY);

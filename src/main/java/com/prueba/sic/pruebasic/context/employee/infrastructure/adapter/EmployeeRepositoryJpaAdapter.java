@@ -32,6 +32,7 @@ public class EmployeeRepositoryJpaAdapter implements EmployeeRepository {
 
     @Override
     public Employee create(Employee employee) {
+        System.out.println("employee: " + employee);
         EmployeeEntity employeeEntity = employeeJpaRepository.save(mapper.modelToEntity(employee));
         return mapper.entityToModel(employeeEntity);
     }

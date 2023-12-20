@@ -11,8 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProcessUpdateDTO {
 
-    private Long filingNumber;
-    private int filingYear;
+    private String filingYear;
     private String processName;
     private String description;
 

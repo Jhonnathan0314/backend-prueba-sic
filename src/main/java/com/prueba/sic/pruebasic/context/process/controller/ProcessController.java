@@ -61,25 +61,25 @@ public class ProcessController {
         }
     }
 
-    @PostMapping
-    public ResponseEntity<ApiResponse<ProcessResponseDTO>> create(@RequestBody ProcessCreateDTO process) {
+    @PostMapping("/person/{personId}/employee/{employeeId}")
+    public ResponseEntity<ApiResponse<ProcessResponseDTO>> create(@PathVariable Long personId, @PathVariable Long employeeId, @RequestBody ProcessCreateDTO process) {
         ApiResponse<ProcessResponseDTO> response = new ApiResponse<>();
         try {
-            response.setData(processResponseMapper.modelToDto(processCreateUseCase.create(processCreateMapper.dtoToModel(process))));
+            response.setData(processResponseMapper.modelToDto(processCreateUseCase.create(personId, employeeId, processCreateMapper.dtoToModel(process))));
             return ResponseEntity.ok(response);
-        } catch (DuplicatedException | InvalidBodyException e) {
+        } catch (DuplicatedException | InvalidBodyException | NonExistenceException e) {
             response.setError(httpUtils.determineErrorMessage(e));
             return new ResponseEntity<>(response, httpUtils.determineHttpStatus(e));
         }
     }
 
-    @PutMapping
-    public ResponseEntity<ApiResponse<ProcessResponseDTO>> update(@RequestBody ProcessUpdateDTO process) {
+    @PutMapping("/{processId}/person/{personId}/employee/{employeeId}")
+    public ResponseEntity<ApiResponse<ProcessResponseDTO>> update(@PathVariable Long processId, @PathVariable Long personId, @PathVariable Long employeeId, @RequestBody ProcessUpdateDTO process) {
         ApiResponse<ProcessResponseDTO> response = new ApiResponse<>();
         try {
-            response.setData(processResponseMapper.modelToDto(processUpdateUseCase.update(processUpdateMapper.dtoToModel(process))));
+            response.setData(processResponseMapper.modelToDto(processUpdateUseCase.update(processId, personId, employeeId, processUpdateMapper.dtoToModel(process))));
             return ResponseEntity.ok(response);
-        } catch (NoIdReceivedException | InvalidBodyException | NoResultsException | NoChangesException e) {
+        } catch (NoIdReceivedException | InvalidBodyException | NoResultsException | NoChangesException | NonExistenceException e) {
             response.setError(httpUtils.determineErrorMessage(e));
             return new ResponseEntity<>(response, httpUtils.determineHttpStatus(e));
         }

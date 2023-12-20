@@ -73,11 +73,11 @@ public class PersonController {
         }
     }
 
-    @PutMapping
-    public ResponseEntity<ApiResponse<PersonResponseDTO>> update(@RequestBody PersonUpdateDTO person) {
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse<PersonResponseDTO>> update(@PathVariable Long id, @RequestBody PersonUpdateDTO person) {
         ApiResponse<PersonResponseDTO> response = new ApiResponse<>();
         try {
-            response.setData(personResponseMapper.modelToDto(personUpdateUseCase.update(personUpdateMapper.dtoToModel(person))));
+            response.setData(personResponseMapper.modelToDto(personUpdateUseCase.update(id, personUpdateMapper.dtoToModel(person))));
             return ResponseEntity.ok(response);
         } catch (NoIdReceivedException | InvalidBodyException | NoResultsException | NoChangesException e) {
             response.setError(httpUtils.determineErrorMessage(e));
@@ -85,7 +85,7 @@ public class PersonController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Object>> deleteById(@PathVariable Long id) {
         ApiResponse<Object> response = new ApiResponse<>();
         try {

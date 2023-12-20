@@ -15,6 +15,5 @@ public class EmployeeResponseDTO {
     private Long identificationNumber;
     private String dependence;
     private Timestamp admissionDate;
-    private PersonResponseDTO person;
 
 }

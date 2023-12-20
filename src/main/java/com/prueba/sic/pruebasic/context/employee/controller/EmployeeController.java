@@ -67,25 +67,25 @@ public class EmployeeController {
         try {
             response.setData(employeeResponseMapper.modelToDto(employeeCreateUseCase.create(employeeCreateMapper.dtoToModel(employee))));
             return ResponseEntity.ok(response);
-        } catch (DuplicatedException | InvalidBodyException e) {
+        } catch (DuplicatedException | InvalidBodyException | NonExistenceException e) {
             response.setError(httpUtils.determineErrorMessage(e));
             return new ResponseEntity<>(response, httpUtils.determineHttpStatus(e));
         }
     }
 
-    @PutMapping
-    public ResponseEntity<ApiResponse<EmployeeResponseDTO>> update(@RequestBody EmployeeUpdateDTO employee) {
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse<EmployeeResponseDTO>> update(@PathVariable Long id, @RequestBody EmployeeUpdateDTO employee) {
         ApiResponse<EmployeeResponseDTO> response = new ApiResponse<>();
         try {
-            response.setData(employeeResponseMapper.modelToDto(employeeUpdateUseCase.update(employeeUpdateMapper.dtoToModel(employee))));
+            response.setData(employeeResponseMapper.modelToDto(employeeUpdateUseCase.update(id, employeeUpdateMapper.dtoToModel(employee))));
             return ResponseEntity.ok(response);
-        } catch (NoIdReceivedException | InvalidBodyException | NoResultsException | NoChangesException e) {
+        } catch (NoIdReceivedException | InvalidBodyException | NoResultsException | NoChangesException | NonExistenceException e) {
             response.setError(httpUtils.determineErrorMessage(e));
             return new ResponseEntity<>(response, httpUtils.determineHttpStatus(e));
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Object>> deleteById(@PathVariable Long id) {
         ApiResponse<Object> response = new ApiResponse<>();
         try {

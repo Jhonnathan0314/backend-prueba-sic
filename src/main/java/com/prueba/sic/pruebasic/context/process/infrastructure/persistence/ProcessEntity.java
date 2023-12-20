@@ -22,10 +22,11 @@ public class ProcessEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "filing_number")
     private Long filingNumber;
 
     @Column(name = "filing_year")
-    private int filingYear;
+    private String filingYear;
 
     @Column(name = "process_name")
     private String processName;

@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 public class Process {
 
     private Long filingNumber;
-    private int filingYear;
+    private String filingYear;
     private String processName;
     private String description;
     private Timestamp creationDate;
@@ -25,10 +25,11 @@ public class Process {
     private Employee officialReceived;
 
     public boolean isValid(Process process) {
-        if(process.getFilingYear() <= 0) return false;
+        if(process.getFilingYear() == null) return false;
         if(process.getProcessName() == null) return false;
         if(process.getDescription() == null) return false;
-        return !process.getProcessName().isEmpty() &&
+        return !process.getFilingYear().isEmpty() &&
+                !process.getProcessName().isEmpty() &&
                 !process.getDescription().isEmpty();
     }
 

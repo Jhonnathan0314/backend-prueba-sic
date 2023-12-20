@@ -20,6 +20,7 @@ public class PersonMapper implements Mapper<PersonEntity, Person, PersonDTO> {
                 .phone(entity.getPhone())
                 .address(entity.getAddress())
                 .email(entity.getEmail())
+                .password(entity.getPassword())
                 .build();
     }
 
@@ -33,6 +34,7 @@ public class PersonMapper implements Mapper<PersonEntity, Person, PersonDTO> {
                 .phone(model.getPhone())
                 .address(model.getAddress())
                 .email(model.getEmail())
+                .password(model.getPassword())
                 .build();
     }
 
@@ -46,6 +48,7 @@ public class PersonMapper implements Mapper<PersonEntity, Person, PersonDTO> {
                 .phone(model.getPhone())
                 .address(model.getAddress())
                 .email(model.getEmail())
+                .password(model.getPassword())
                 .build();
     }
 
@@ -59,6 +62,7 @@ public class PersonMapper implements Mapper<PersonEntity, Person, PersonDTO> {
                 .phone(dto.getPhone())
                 .address(dto.getAddress())
                 .email(dto.getEmail())
+                .password(dto.getPassword())
                 .build();
     }
 

@@ -12,7 +12,7 @@ import lombok.Getter;
 public class ProcessResponseDTO {
 
     private Long filingNumber;
-    private int filingYear;
+    private String filingYear;
     private String processName;
     private String description;
     private PersonResponseDTO filingPerson;

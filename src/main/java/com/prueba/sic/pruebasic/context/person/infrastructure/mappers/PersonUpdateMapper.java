@@ -19,6 +19,7 @@ public class PersonUpdateMapper implements Mapper<PersonEntity, Person, PersonUp
                 .phone(entity.getPhone())
                 .address(entity.getAddress())
                 .email(entity.getEmail())
+                .password(entity.getPassword())
                 .build();
     }
 
@@ -31,6 +32,7 @@ public class PersonUpdateMapper implements Mapper<PersonEntity, Person, PersonUp
                 .phone(model.getPhone())
                 .address(model.getAddress())
                 .email(model.getEmail())
+                .password(model.getPassword())
                 .build();
     }
 
@@ -43,6 +45,7 @@ public class PersonUpdateMapper implements Mapper<PersonEntity, Person, PersonUp
                 .phone(model.getPhone())
                 .address(model.getAddress())
                 .email(model.getEmail())
+                .password(model.getPassword())
                 .build();
     }
 
@@ -55,6 +58,7 @@ public class PersonUpdateMapper implements Mapper<PersonEntity, Person, PersonUp
                 .phone(dto.getPhone())
                 .address(dto.getAddress())
                 .email(dto.getEmail())
+                .password(dto.getPassword())
                 .build();
     }
 

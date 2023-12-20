@@ -17,5 +17,6 @@ public class PersonUpdateDTO {
     private Long phone;
     private String address;
     private String email;
+    private String password;
 
 }

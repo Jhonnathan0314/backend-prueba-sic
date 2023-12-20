@@ -42,6 +42,9 @@ public class PersonEntity {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "password")
+    private String password;
+
     @CreationTimestamp
     @Column(name = "creation_date", updatable = false)
     private Timestamp creationDate;

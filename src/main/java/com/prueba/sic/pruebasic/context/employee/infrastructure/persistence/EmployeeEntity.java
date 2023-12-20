@@ -38,6 +38,7 @@ public class EmployeeEntity {
 
     @ManyToOne
     @JoinColumn(name = "identification_number", updatable = false)
+    @MapsId
     private PersonEntity person;
 
 }

@@ -8,6 +8,7 @@ import com.prueba.sic.pruebasic.utils.exceptions.NoChangesException;
 import com.prueba.sic.pruebasic.utils.exceptions.NoIdReceivedException;
 import com.prueba.sic.pruebasic.utils.exceptions.NoResultsException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -18,10 +19,11 @@ import java.util.Optional;
 public class PersonUpdateUseCase {
 
     private final ErrorMessages errorMessages = new ErrorMessages();
-
     private final PersonRepository personRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public Person update(Person person) throws NoIdReceivedException, NoResultsException, NoChangesException, InvalidBodyException {
+    public Person update(Long id, Person person) throws NoIdReceivedException, NoResultsException, NoChangesException, InvalidBodyException {
+        person.setIdentificationNumber(id);
         if(person.getIdentificationNumber() == null) throw new NoIdReceivedException(errorMessages.NO_ID_RECEIVED);
 
         if(!person.isValid(person)) throw new InvalidBodyException(errorMessages.INVALID_BODY);
@@ -33,6 +35,13 @@ public class PersonUpdateUseCase {
         if(areEquals(personDb, person)) throw new NoChangesException(errorMessages.NO_CHANGES);
 
         person.setCreationDate(personDb.getCreationDate());
+
+        if(person.getPassword() != null) {
+            person.setPassword(passwordEncoder.encode(person.getPassword()));
+        }
+
+        person.setPassword(personDb.getPassword());
+
         return personRepository.update(person);
     }
 
@@ -41,7 +50,8 @@ public class PersonUpdateUseCase {
                 oldPerson.getLastname().equals(newPerson.getLastname()) &&
                 Objects.equals(oldPerson.getPhone(), newPerson.getPhone()) &&
                 oldPerson.getAddress().equals(newPerson.getAddress()) &&
-                oldPerson.getEmail().equals(newPerson.getEmail());
+                oldPerson.getEmail().equals(newPerson.getEmail()) &&
+                oldPerson.getPassword().equals(newPerson.getPassword());
     }
 
 }

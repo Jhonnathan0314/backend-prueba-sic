@@ -13,7 +13,6 @@ public class ProcessUpdateMapper implements Mapper<ProcessEntity, Process, Proce
     @Override
     public Process entityToModel(ProcessEntity entity) {
         return Process.builder()
-                .filingNumber(entity.getFilingNumber())
                 .filingYear(entity.getFilingYear())
                 .processName(entity.getProcessName())
                 .description(entity.getDescription())
@@ -23,7 +22,6 @@ public class ProcessUpdateMapper implements Mapper<ProcessEntity, Process, Proce
     @Override
     public ProcessEntity modelToEntity(Process model) {
         return ProcessEntity.builder()
-                .filingNumber(model.getFilingNumber())
                 .filingYear(model.getFilingYear())
                 .processName(model.getProcessName())
                 .description(model.getDescription())
@@ -33,7 +31,6 @@ public class ProcessUpdateMapper implements Mapper<ProcessEntity, Process, Proce
     @Override
     public ProcessUpdateDTO modelToDto(Process model) {
         return ProcessUpdateDTO.builder()
-                .filingNumber(model.getFilingNumber())
                 .filingYear(model.getFilingYear())
                 .processName(model.getProcessName())
                 .description(model.getDescription())
@@ -43,7 +40,6 @@ public class ProcessUpdateMapper implements Mapper<ProcessEntity, Process, Proce
     @Override
     public Process dtoToModel(ProcessUpdateDTO dto) {
         return Process.builder()
-                .filingNumber(dto.getFilingNumber())
                 .filingYear(dto.getFilingYear())
                 .processName(dto.getProcessName())
                 .description(dto.getDescription())
